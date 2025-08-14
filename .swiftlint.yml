@@ -1,0 +1,10 @@
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+  - identifier_name
+opt_in_rules: []
+included:
+  - Sources
+  - Tests
+
+

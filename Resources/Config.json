@@ -1,0 +1,9 @@
+{
+  "walkBout": { "minDurationSec": 60, "minSteps": 60, "minCadenceSPM": 60 },
+  "sedentary": { "streakMinMin": 45, "resolveMinSec": 120, "resolveMinSteps": 150 },
+  "stairs": { "windowMin": 2, "minDeltaFloors": 1 },
+  "commute": { "minDurationMin": 5, "minDisplacementKm": 1, "walkMaxMps": 2.0, "cycleMaxMps": 8.0 },
+  "nudges": { "maxPerDay": 4, "moveCooldownMin": 90, "quietStart": "21:00", "quietEnd": "07:00" }
+}
+
+
