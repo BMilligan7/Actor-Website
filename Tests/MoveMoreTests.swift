@@ -68,6 +68,27 @@ final class MoveMoreTests: XCTestCase {
         )
         XCTAssertTrue(bouts.isEmpty)
     }
+
+    func testDetectsStairsWithinWindow() {
+        let base = Date()
+        let w1 = StairsWindow(start: base, end: base.addingTimeInterval(30), floorsUp: 1, floorsDown: 0)
+        let w2 = StairsWindow(start: base.addingTimeInterval(30), end: base.addingTimeInterval(60), floorsUp: 1, floorsDown: 0)
+
+        let events = StairDetector.detectEvents(windows: [w1, w2], windowMin: 2, minDeltaFloors: 2, context: .work)
+        XCTAssertEqual(events.count, 1)
+        let ev = try! XCTUnwrap(events.first)
+        XCTAssertEqual(ev.flightsUp, 2)
+        XCTAssertEqual(ev.flightsDown, 0)
+        XCTAssertEqual(ev.context, .work)
+        XCTAssertEqual(ev.timestamp, w2.end)
+    }
+
+    func testRejectsStairsBelowThreshold() {
+        let base = Date()
+        let w = StairsWindow(start: base, end: base.addingTimeInterval(30), floorsUp: 1, floorsDown: 0)
+        let events = StairDetector.detectEvents(windows: [w], windowMin: 2, minDeltaFloors: 2)
+        XCTAssertTrue(events.isEmpty)
+    }
 }
 
 

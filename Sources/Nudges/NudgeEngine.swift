@@ -130,6 +130,20 @@ public struct MotionWindow: Equatable {
     }
 }
 
+public struct StairsWindow: Equatable {
+    public let start: Date
+    public let end: Date
+    public let floorsUp: Int
+    public let floorsDown: Int
+
+    public init(start: Date, end: Date, floorsUp: Int, floorsDown: Int) {
+        self.start = start
+        self.end = end
+        self.floorsUp = max(0, floorsUp)
+        self.floorsDown = max(0, floorsDown)
+    }
+}
+
 struct WalkBoutDetector {
     /// Detects walk bouts by merging consecutive walking-majority windows and applying thresholds.
     /// - Parameters:
@@ -197,9 +211,85 @@ struct WalkBoutDetector {
 }
 
 struct StairDetector {
-    static func detectStairs(minDeltaFloors: Int) -> [StairEvent] {
-        // Placeholder: compute floors deltas over windows
-        return []
+    /// Detect stair events by aggregating floors climbed/descended within a rolling window.
+    /// - Parameters:
+    ///   - windows: Time-ordered stair windows (order is enforced inside).
+    ///   - windowMin: Maximum duration in minutes over which to aggregate floors into a single event.
+    ///   - minDeltaFloors: Minimum flights up or down required to emit an event.
+    ///   - context: Place context to stamp on emitted events.
+    static func detectEvents(windows: [StairsWindow], windowMin: Int, minDeltaFloors: Int, context: PlaceType = .other) -> [StairEvent] {
+        guard !windows.isEmpty else { return [] }
+
+        let sorted = windows.sorted { $0.start < $1.start }
+        var events: [StairEvent] = []
+
+        var currentStart: Date?
+        var currentEnd: Date?
+        var currentUp = 0
+        var currentDown = 0
+
+        func flushIfEvent() {
+            guard let s = currentStart, let e = currentEnd else { return }
+            let durationSec = max(0, Int(e.timeIntervalSince(s)))
+            let allowedSec = max(0, windowMin * 60)
+            guard durationSec <= allowedSec else { reset() ; return }
+            let qualifies = currentUp >= minDeltaFloors || currentDown >= minDeltaFloors
+            guard qualifies else { reset() ; return }
+            let event = StairEvent(
+                id: UUID(),
+                timestamp: e,
+                flightsUp: currentUp,
+                flightsDown: currentDown,
+                context: context
+            )
+            events.append(event)
+            reset()
+        }
+
+        func reset() {
+            currentStart = nil
+            currentEnd = nil
+            currentUp = 0
+            currentDown = 0
+        }
+
+        for w in sorted {
+            if currentStart == nil {
+                currentStart = w.start
+                currentEnd = w.end
+                currentUp = w.floorsUp
+                currentDown = w.floorsDown
+                continue
+            }
+
+            // If adding this window would exceed the allowed aggregation span, try to flush first
+            let tentativeEnd = max(currentEnd ?? w.end, w.end)
+            let spanSec = Int(tentativeEnd.timeIntervalSince(currentStart!))
+            if spanSec > windowMin * 60 {
+                flushIfEvent()
+            }
+
+            if currentStart == nil {
+                // After flush we may start anew with this window
+                currentStart = w.start
+                currentEnd = w.end
+                currentUp = w.floorsUp
+                currentDown = w.floorsDown
+            } else {
+                currentEnd = tentativeEnd
+                currentUp += w.floorsUp
+                currentDown += w.floorsDown
+            }
+
+            // Opportunistically flush as soon as threshold reached within window
+            let qualifies = currentUp >= minDeltaFloors || currentDown >= minDeltaFloors
+            if qualifies { flushIfEvent() }
+        }
+
+        // Tail: if accumulated but under window span and meets threshold
+        flushIfEvent()
+
+        return events
     }
 }
 

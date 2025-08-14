@@ -67,7 +67,7 @@ final class AppEnvironment: ObservableObject {
         self.config = AppConfigLoader.load()
         self.storage = UserDefaultsStorage()
         self.nudgeEngine = NudgeEngine(config: config, storage: storage)
-        self.motionIngestor = MotionIngestor(storage: storage)
+        self.motionIngestor = MotionIngestor(storage: storage, config: config)
         self.activityIngestor = ActivityIngestor(storage: storage)
         self.locationIngestor = LocationIngestor()
     }
