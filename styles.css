@@ -18,6 +18,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background: var(--white);
     overflow-x: hidden;
 }
 
@@ -107,10 +108,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg) 100%);
+    background:
+        linear-gradient(90deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.62) 52%, rgba(10, 10, 10, 0.28) 100%),
+        url("images/OTP-Headshots-20060.jpg") center right / cover;
     color: var(--white);
-    text-align: center;
+    text-align: left;
     margin-top: 0;
+}
+
+.hero-content {
+    width: min(1120px, calc(100% - 40px));
 }
 
 .hero-content h1 {
@@ -129,6 +136,7 @@ body {
 .section {
     padding: 100px 0;
     min-height: 60vh;
+    background: var(--white);
 }
 
 .section-dark {
@@ -166,7 +174,7 @@ body {
     margin: 0 auto;
     font-size: 1.1rem;
     line-height: 1.8;
-    text-align: justify;
+    text-align: left;
 }
 
 .bio-content p {
@@ -224,9 +232,10 @@ body {
 /* Headshots Gallery */
 .headshots-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1.45fr 1fr;
     gap: 2rem;
     margin-top: 3rem;
+    align-items: stretch;
 }
 
 .headshot-item {
@@ -237,6 +246,10 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     aspect-ratio: 2 / 3; /* Consistent portrait framing */
     background: #000; /* Avoid white bars around images */
+}
+
+.headshot-featured {
+    aspect-ratio: 4 / 3;
 }
 
 .headshot-item:hover {
@@ -252,8 +265,27 @@ body {
     transition: transform 0.3s ease;
 }
 
+.headshot-img-wide {
+    object-position: 56% center;
+}
+
 .headshot-item:hover .headshot-img {
     transform: scale(1.05);
+}
+
+.headshot-caption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(0, 0, 0, 0.68);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 .note {
@@ -277,6 +309,48 @@ body {
 .section-dark .note code {
     background: rgba(255, 255, 255, 0.1);
     color: var(--white);
+}
+
+/* Reviews Section */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.review-card {
+    display: flex;
+    min-height: 230px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.review-quote {
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--white);
+}
+
+.review-source {
+    margin-top: 1.5rem;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.95rem;
+}
+
+.review-source a {
+    color: var(--accent-color);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.review-source a:hover {
+    text-decoration: underline;
 }
 
 /* Resume Section */
@@ -450,6 +524,13 @@ footer {
         font-size: 1.2rem;
     }
 
+    .hero {
+        background:
+            linear-gradient(180deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.48) 100%),
+            url("images/OTP-Headshots-20060.jpg") 62% center / cover;
+        text-align: center;
+    }
+
     .section {
         padding: 60px 0;
     }
@@ -460,6 +541,18 @@ footer {
 
     .headshots-gallery {
         grid-template-columns: 1fr;
+    }
+
+    .headshot-featured {
+        aspect-ratio: 4 / 3;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .review-card {
+        min-height: auto;
     }
 
     .contact-info {
@@ -486,4 +579,3 @@ footer {
 html {
     scroll-behavior: smooth;
 }
-
