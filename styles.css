@@ -132,6 +132,21 @@ body {
     animation: fadeInUp 1s ease 0.2s both;
 }
 
+.currently {
+    max-width: 620px;
+    margin: 0 0 1.6rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 1.05rem;
+    animation: fadeInUp 1s ease 0.35s both;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease 0.48s both;
+}
+
 /* Sections */
 .section {
     padding: 100px 0;
@@ -288,6 +303,14 @@ body {
     text-transform: uppercase;
 }
 
+.headshot-downloads {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
 .note {
     text-align: center;
     margin-top: 2rem;
@@ -386,6 +409,20 @@ body {
 }
 
 .btn-primary {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-color);
+}
+
+.hero .btn-secondary {
+    color: var(--white);
+}
+
+.btn-secondary:hover {
     background: var(--accent-color);
     color: var(--primary-color);
 }
@@ -522,6 +559,16 @@ footer {
 
     .tagline {
         font-size: 1.2rem;
+    }
+
+    .currently {
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 0.95rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
     }
 
     .hero {
