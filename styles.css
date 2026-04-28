@@ -376,18 +376,6 @@ body {
     text-decoration: underline;
 }
 
-/* Resume Section */
-.resume-container {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.resume-container p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-}
-
 /* Buttons */
 .btn {
     display: inline-block;
