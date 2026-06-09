@@ -257,33 +257,11 @@ body {
     color: var(--text-light);
 }
 
-/* Showcase Section */
-.showcase-content {
-    max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.1rem;
-}
-
-.showcase-content p {
-    margin-bottom: 1rem;
-}
-
-.showcase-lede {
-    color: var(--accent-color);
-    font-size: 1.35rem;
-    font-weight: 700;
-}
-
-.showcase-content .btn {
-    margin-top: 0.8rem;
-}
-
 /* Headshots Gallery */
 .headshots-gallery {
     display: grid;
-    grid-template-columns: 1.45fr 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
     margin-top: 3rem;
     align-items: stretch;
 }
@@ -298,10 +276,6 @@ body {
     background: #000; /* Avoid white bars around images */
 }
 
-.headshot-featured {
-    aspect-ratio: 4 / 3;
-}
-
 .headshot-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -313,10 +287,6 @@ body {
     display: block;
     object-fit: cover; /* Crop to fill without distortion */
     transition: transform 0.3s ease;
-}
-
-.headshot-img-wide {
-    object-position: 56% center;
 }
 
 .headshot-item:hover .headshot-img {
