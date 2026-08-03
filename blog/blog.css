@@ -195,7 +195,8 @@ h1 {
 
 .question-block,
 .response-block,
-.closing-block {
+.closing-block,
+.resources {
   margin-top: clamp(4rem, 8vw, 7rem);
   padding: clamp(2rem, 5vw, 4rem);
 }
@@ -241,6 +242,14 @@ h1 {
 .closing-block { margin-inline: clamp(-1rem, -5vw, -5rem); border: 1px solid var(--line); background: var(--cream-light); }
 .closing-block h2 { margin-top: 0.75rem; }
 
+.resources { margin-inline: clamp(-1rem, -5vw, -5rem); border: 1px solid var(--line); background: var(--cream-light); }
+.resources h2 { margin-top: 0.75rem; }
+.resources ul { margin: 1.8rem 0 0; padding: 0; list-style: none; }
+.resources li { border-top: 1px solid var(--line); }
+.resources li:last-child { border-bottom: 1px solid var(--line); }
+.resources a { display: block; padding: 1.25rem 0; color: var(--blue); font-family: "Newsreader Variable", Georgia, serif; font-size: 1.3rem; line-height: 1.2; text-decoration: none; }
+.resources a:hover { color: var(--rust); }
+
 footer {
   display: flex;
   align-items: center;
@@ -271,7 +280,7 @@ footer a:hover { color: var(--cream-light); }
   .hero-figure img { min-height: 0; aspect-ratio: 4 / 5; }
   .hero-figure figcaption { min-height: 230px; align-items: end; }
   .article-body { width: min(100% - 2rem, 760px); }
-  .question-block, .response-block, .closing-block { margin-inline: -1rem; }
+  .question-block, .response-block, .closing-block, .resources { margin-inline: -1rem; }
   footer { align-items: flex-start; flex-direction: column; }
 }
 
