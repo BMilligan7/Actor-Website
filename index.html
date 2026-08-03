@@ -16,19 +16,25 @@
     <div id="root"></div>
     <script>
       window.addEventListener('load', () => {
-        const addBlogLink = () => {
+        const addNavigationLinks = () => {
           const navigation = document.querySelector('.primary-nav');
-          if (!navigation || navigation.querySelector('[data-blog-link]')) return;
+          if (!navigation) return;
 
-          const blogLink = document.createElement('a');
-          blogLink.href = '/blog/';
-          blogLink.textContent = 'Blog';
-          blogLink.setAttribute('data-blog-link', '');
-          navigation.appendChild(blogLink);
+          [
+            { href: '/blog/', label: 'Blog', attribute: 'data-blog-link' },
+            { href: '/websites/', label: 'Build', attribute: 'data-build-link' }
+          ].forEach(({ href, label, attribute }) => {
+            if (navigation.querySelector(`[${attribute}]`)) return;
+            const link = document.createElement('a');
+            link.href = href;
+            link.textContent = label;
+            link.setAttribute(attribute, '');
+            navigation.appendChild(link);
+          });
         };
 
-        addBlogLink();
-        new MutationObserver(addBlogLink).observe(document.body, {
+        addNavigationLinks();
+        new MutationObserver(addNavigationLinks).observe(document.body, {
           childList: true,
           subtree: true
         });
