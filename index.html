@@ -14,5 +14,25 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      window.addEventListener('load', () => {
+        const addBlogLink = () => {
+          const navigation = document.querySelector('.primary-nav');
+          if (!navigation || navigation.querySelector('[data-blog-link]')) return;
+
+          const blogLink = document.createElement('a');
+          blogLink.href = '/blog/';
+          blogLink.textContent = 'Blog';
+          blogLink.setAttribute('data-blog-link', '');
+          navigation.appendChild(blogLink);
+        };
+
+        addBlogLink();
+        new MutationObserver(addBlogLink).observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      });
+    </script>
   </body>
 </html>
