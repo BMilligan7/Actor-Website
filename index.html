@@ -9,68 +9,10 @@
     />
     <meta name="theme-color" content="#132b46" />
     <title>Brandon Milligan — Actor &amp; Creator</title>
-    <script type="module" crossorigin src="/assets/index-BrxnPZj0.js"></script>
+    <script type="module" crossorigin src="/assets/index-Cn6J5kxE.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-kc9gT4A8.css">
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      window.addEventListener('load', () => {
-        const updateHomePage = () => {
-          const navigation = document.querySelector('.primary-nav');
-          if (navigation) {
-            navigation.querySelectorAll('a[href="#about"], a[href="#headshots"]').forEach((link) => link.remove());
-
-            [
-              { href: '/blog/', label: 'Blog', attribute: 'data-blog-link' },
-              { href: '/websites/', label: 'Build', attribute: 'data-build-link' }
-            ].forEach(({ href, label, attribute }) => {
-              if (navigation.querySelector(`[${attribute}]`)) return;
-              const link = document.createElement('a');
-              link.href = href;
-              link.textContent = label;
-              link.setAttribute(attribute, '');
-              navigation.appendChild(link);
-            });
-          }
-
-          document.querySelectorAll('.about-section, .headshots-section').forEach((section) => section.remove());
-
-          const serviceRow = document.querySelector('.service-row');
-          if (!serviceRow) return;
-
-          const serviceLink = serviceRow.querySelector('a');
-          if (serviceLink) {
-            serviceLink.href = '/websites/';
-            if (serviceLink.textContent.trim() !== 'Request a website concept') {
-              serviceLink.textContent = 'Request a website concept';
-            }
-            serviceLink.setAttribute('aria-label', 'Request a website concept');
-          }
-
-          if (serviceRow.dataset.buildServiceReady) return;
-          serviceRow.dataset.buildServiceReady = 'true';
-          serviceRow.setAttribute('role', 'link');
-          serviceRow.setAttribute('tabindex', '0');
-          serviceRow.setAttribute('aria-label', 'Request a website concept');
-          serviceRow.style.cursor = 'pointer';
-          serviceRow.addEventListener('click', (event) => {
-            if (!event.target.closest('a')) window.location.assign('/websites/');
-          });
-          serviceRow.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault();
-              window.location.assign('/websites/');
-            }
-          });
-        };
-
-        updateHomePage();
-        new MutationObserver(updateHomePage).observe(document.body, {
-          childList: true,
-          subtree: true
-        });
-      });
-    </script>
   </body>
 </html>
